@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "release": "np --no-2fa"
   },
   "author": "Jinu Joseph Daniel",
   "license": "ISC",
