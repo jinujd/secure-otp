@@ -11,7 +11,7 @@ const generateOtp = (phone, length = 6, expiresAtSeconds = 60*5, digits = true, 
         const secret = SHA256(`${generateUniqueString()}${separator}${phone}${separator}${otp}`).toString()
         const token = jwt.sign({ exp: Math.floor(Date.now() / 1000) + expiresAtSeconds, data: {phone, otp} }, secret)
         const saltRounds = 10
-        bcrypt.hash(secret, saltRounds, function(err, hash) {
+        bcrypt.hash(secret, saltRounds, (err, hash) => {
             if(err) return reject(err)
             resolve({  phone, otp, secret, hash, token })
         }) 
@@ -22,14 +22,14 @@ const generateOtp = (phone, length = 6, expiresAtSeconds = 60*5, digits = true, 
 
 const verifyOtp = (phone, otp, secret, hash, token) => promise((resolve, reject) => {
     try {
-        bcrypt.compare(secret, hash, function(err, result) { 
+        bcrypt.compare(secret, hash, (err, result) => { 
             if(err || !result) return resolve(false)  
             jwt.verify(token, secret,(err, decodedValue) => { 
                 if(err || !decodedValue) return resolve(false)
                 const {data:{phone: originalPhone, otp: originalOtp}} = decodedValue
                 resolve((phone == originalPhone) && (otp == originalOtp))  
             }) 
-        }); 
+        }) 
     } catch( err ) {
         reject(err)
     }
