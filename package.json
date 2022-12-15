@@ -1,6 +1,6 @@
 {
   "name": "@jinujd/secure-otp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "keywords": [
     "secure one time password",
     "one time password",
-    "otp", 
+    "otp",
     "secure otp",
     "otp generation",
     "otp validation"
