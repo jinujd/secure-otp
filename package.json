@@ -1,5 +1,5 @@
 {
-  "name": "@jinujd/secure-otp",
+  "name": "secure-otp",
   "version": "1.0.4",
   "description": "",
   "main": "index.js",
