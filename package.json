@@ -21,7 +21,10 @@
     "otp",
     "secure otp",
     "otp generation",
-    "otp validation"
+    "otp validation",
+    "otp-generator",
+    "crypto",
+    "jwt"
   ],
   "publishConfig": {
     "access": "public"
