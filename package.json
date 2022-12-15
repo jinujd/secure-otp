@@ -15,6 +15,14 @@
     "jsonwebtoken": "^8.5.1",
     "otp-generator": "^4.0.0"
   },
+  "keywords": [
+    "secure one time password",
+    "one time password",
+    "otp", 
+    "secure otp",
+    "otp generation",
+    "otp validation"
+  ],
   "publishConfig": {
     "access": "public"
   }
