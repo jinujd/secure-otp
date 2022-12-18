@@ -2,24 +2,34 @@ const otpGenerator = require('otp-generator')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt'); 
 const SHA256 = require("crypto-js/sha256");
+const { enc } = require('crypto-js');
+const encrypt = (data, key) => {
+
+}
+const decrypt = (data, key) => {
+
+}
 const generateUniqueString = (length=6, digits = true, upperCaseAlphabets = false, lowerCaseAlphabets = false, specialChars = false) =>  otpGenerator.generate(length, { digits, upperCaseAlphabets, lowerCaseAlphabets, specialChars }); 
 const promise = (cb) => new Promise(cb)  
-const generateOtp = (identifier, length = 6, expiresAtSeconds = 60*5, digits = true, upperCaseAlphabets = false, lowerCaseAlphabets = false, specialChars = false) => promise((resolve, reject) => {
+const generateOtp = (identifier, length = 6, expiresAtSeconds = 60*5, digits = true, upperCaseAlphabets = false, lowerCaseAlphabets = false, specialChars = false, encryptionKey = null, encryptor = encrypt) => promise((resolve, reject) => {
     try {
         const separator = "--"
         const otp = generateUniqueString(length, digits, upperCaseAlphabets, lowerCaseAlphabets, specialChars)
         const secret = SHA256(`${generateUniqueString()}${separator}${identifier}${separator}${otp}`).toString()
-        const token = jwt.sign({ exp: Math.floor(Date.now() / 1000) + expiresAtSeconds, data: {identifier, otp} }, secret)
+        let token = jwt.sign({ exp: Math.floor(Date.now() / 1000) + expiresAtSeconds, data: {identifier, otp} }, secret)
         const saltRounds = 10
         bcrypt.hash(secret, saltRounds, (err, hash) => {
             if(err) return reject(err)
+            if(encryptionKey) {
+                hash = encryptor(hash, encryptionKey)
+                token = encryptor(token, encryptionKey)
+            }
             resolve({  identifier, otp, secret, hash, token })
         }) 
     } catch(err) {
         reject(err)
     }
-})
-
+}) 
 const verifyOtp = (identifier, otp, secret, hash, token) => promise((resolve, reject) => {
     try {
         bcrypt.compare(secret, hash, (err, result) => { 
