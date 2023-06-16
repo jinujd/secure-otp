@@ -35,7 +35,7 @@ Advantages of this method are
 ##Code for generating OTP##
 ###Without await###
 ```javascript
-    const {generateOtp} = require(`@jinujd/secure-otp`)
+    const {generateOtp} = require(`secure-otp`)
     generateOtp("8594011122", 4).then((otpInfo) => {
         const {identifier, otp, secret, hash, token} = otpInfo 
     }) 
@@ -43,7 +43,7 @@ Advantages of this method are
 
 ###With await###
 ```javascript
-    const {generateOtp} = require(`@jinujd/secure-otp`)
+    const {generateOtp} = require(`secure-otp`)
     const otpInfo = await generateOtp("8594011122", 4)
     const {identifier, otp, secret, hash, token} = otpInfo  
 ```
@@ -51,7 +51,7 @@ Advantages of this method are
 ##Code for verifying OTP## 
 ###Without await###
 ```javascript
-    const {verifyOtp} = require(`@jinujd/secure-otp`)
+    const {verifyOtp} = require(`secure-otp`)
     
     verifyOtp(identifier, otp, secret, hash, token).then((isVerified) => {
         console.log(isVerified) //true / false
@@ -59,7 +59,7 @@ Advantages of this method are
 ```
 ###With await###
 ```javascript
-    const {generateOtp} = require(`@jinujd/secure-otp`)
+    const {generateOtp} = require(`secure-otp`)
     const isVerified = verifyOtp(identifier, otp, secret, hash, token)
     console.log(isVerified) //true / false   
 ```
